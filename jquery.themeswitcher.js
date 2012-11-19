@@ -30,7 +30,8 @@
 			onopen: null,
 			onclose: null,
 			onselect: null,
-            cookieexpires: 365,
+			onchoose: null,
+			cookieexpires: 365,
             cookiepath: '/'
     	};
     	
@@ -303,7 +304,7 @@
     					listLink.css("background","none");
     				},
     				click: function(e){
-    					updateTheme($(this).data());
+    					updateTheme($(this).data(),1);
     					e.preventDefault();
     				}
     			})
@@ -331,10 +332,12 @@
     			.appendTo(listLink);
     	});
     	
-    	function updateTheme(data){
+    	function updateTheme(data, clicked){
     		if( settings.onselect !== null )
     			settings.onselect();
-    		
+    		if( settings.onchoose !== null && clicked )
+    			settings.onchoose();
+    			
     		switcherTitle.text(settings.buttonpretext +" "+ data.title);
     		
    			
